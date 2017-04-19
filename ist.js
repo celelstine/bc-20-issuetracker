@@ -1,9 +1,18 @@
 
 var express = require('express');
 var app = express();
-app.set('port', process.env.PORT || 3000);
+
 const firebase = require("firebase");
 const bodyParser = require('body-parser');
+// session setup
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+
+// must use cookieParser before expressSession
+app.use(cookieParser());
+app.use(session({resave: true, saveUninitialized: true, secret: 'SOMERANDOMSECRETHERE', cookie: { maxAge: 60000 }}));
+
+app.set('port', process.env.PORT || 3000);
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyABfpbd-dGQ97txyD37v98jZAkr0Dj8Qic",
@@ -33,16 +42,10 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: true })); 
 
-// session setup
-var expressSession = require('express-session');
+
+
+
 app.use(express.static(__dirname + '/public'));
-var cookieParser = require('cookie-parser');
-// must use cookieParser before expressSession
-app.use(cookieParser());
-
-app.use(expressSession({secret:'smilesh2o24Andela'}));
-
-
 
 function adminOnly(req, res, next){
 	if(req.session.uid && req.session.role==='admin') return next();
@@ -50,7 +53,11 @@ function adminOnly(req, res, next){
 		next('route');
 }
 
-
+app.post('/setsession', function(req,res){
+		req.session.uid= req.body.uid;
+		req.session.save();
+		console.log(req.session.uid);
+});
 app.get('/login', function(req,res){
 	res.render('login');
 });
@@ -68,30 +75,35 @@ app.get('/signup', function(req,res){
 		check if user used a third party
 		retrun his deatials
 	**/
-	console.log(firebase.auth.currentuser)
 	res.render('signup');
 });
+
+
 app.post('/signup', function(req,res){
-	/** todo 
-			using firebase email signin
-			push user info into db
-			if he uses email use firebase email and password to create new user
-			redirect to home page
-	**/
+		console.log(req.session.uid);
+	var email=req.body.email,
+    department=req.body.department,
+    name=req.body.name;
+    userRef = firebase.database().ref('ist/user');
+	var  newuser = {
+    "name" : name,
+    "departments" : department,
+    "uid" : req.session.uid,
+    "email" : email
+  };
+  console.log(newuser);
+  userRef.push(newuser).then(function(user) {
+    res.redirect('/');
+  }). catch(function(error) {
+    console.error('Sign Out Error', error);
+    res.redirect('/login');
+  });
 });
 
 
 app.use(function(req,res,next){
-	firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    req.session.uid = user.uid;
-    console.log(user);
-  } else {
-    // No user is signed in.
-  }
-	});
 	if(req.session.uid)  return next();
-	res.render('login');
+	res.redirect('/login');
 });
 
 app.get('/issue', function(req,res){
