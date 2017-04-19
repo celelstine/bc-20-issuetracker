@@ -16,6 +16,15 @@
   ],
   "author": "okorocelestine@gmail.com",
   "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "express3-handlebars": "^0.5.2",
+    "nodemailer": "^3.1.8",
+    "querystring": "^0.2.0",
+    "request": "^2.81.0"
+  },
   "bugs": {
     "url": "https://github.com/celelstine/bc-20-issuetracker/issues"
   },
