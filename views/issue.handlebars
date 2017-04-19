@@ -1,0 +1,49 @@
+<script src="/js/login.js"></script>
+    <form method="post" action="issue" id="issue">
+        <fieldset>
+        <legend> Report an Issue </legend>
+        <span id="result">  </span>
+        Subject: <br>
+        <input type="text" name="name" id="name"  required><br>
+        priority: <br>
+        <select  name="priority" id="priority" required>
+          <option value="">Please select the p</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select><br>
+        Description: <br />
+        <textarea rows="4" cols="50" id="description"> </textarea>
+
+        Department: <br>
+        <select  name="department" id="department" required>
+          <option value="">Please select the concerned department</option>
+          <option value="Finance">Finance</option>
+          <option value="Operations">Operations</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Sales">Sales</option>
+          <option value="Success">Success</option>
+          <option value="Training">Training</option>
+        </select><br>
+        <button type="submit" class="submit"  value="Submit">Submit</button> <br />
+        </fieldset>
+    </form>
+<script type='text/javascript'>
+    $("#issue").submit(function(event) {
+
+      /* stop form from submitting normally */
+      event.preventDefault();
+
+      /* get the action attribute from the <form action=""> element */
+      var $form = $( this ),
+        url = $form.attr( 'action' );
+      var posting = $.post( url, { subject: $('#subject').val(), description: $('#description').val(), department: $('#department').val(), priority: $('#priority').val()} );
+
+      /**posting.done(function( data ) {
+        $("#result").text(data);
+
+      });
+      **/
+    });
+</script>
