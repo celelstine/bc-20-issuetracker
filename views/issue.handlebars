@@ -1,20 +1,21 @@
-<script src="/js/login.js"></script>
+<script src="/js/issue.js"></script>
     <form method="post" action="issue" id="issue">
         <fieldset>
         <legend> Report an Issue </legend>
         <span id="result">  </span>
         Subject: <br>
-        <input type="text" name="name" id="name"  required><br>
+        <input type="text" name="subject" id="subject"  required><br>
         priority: <br>
         <select  name="priority" id="priority" required>
-          <option value="">Please select the p</option>
+          <option value="">Please select the severity</option>
           <option value="Critical">Critical</option>
           <option value="High">High</option>
           <option value="Medium">Medium</option>
           <option value="Low">Low</option>
         </select><br>
         Description: <br />
-        <textarea rows="4" cols="50" id="description"> </textarea>
+        <textarea rows="4" cols="75" id="description" placeholder="Describe the issue here..."> 
+        </textarea> <br/>
 
         Department: <br>
         <select  name="department" id="department" required>
@@ -26,24 +27,14 @@
           <option value="Success">Success</option>
           <option value="Training">Training</option>
         </select><br>
+        Notification: <br>
+        <select  name="notifymeans" id="notifymeans" style="width:50%" >
+          <option value="">Select Notification method</option>
+          <option value="phone">SMS</option>
+          <option value="email">Email</option>
+        </select> 
+         <input type="text" name="notifyvalue" id="notifyvalue" style="width:45%"  >
+        <br>
         <button type="submit" class="submit"  value="Submit">Submit</button> <br />
         </fieldset>
     </form>
-<script type='text/javascript'>
-    $("#issue").submit(function(event) {
-
-      /* stop form from submitting normally */
-      event.preventDefault();
-
-      /* get the action attribute from the <form action=""> element */
-      var $form = $( this ),
-        url = $form.attr( 'action' );
-      var posting = $.post( url, { subject: $('#subject').val(), description: $('#description').val(), department: $('#department').val(), priority: $('#priority').val()} );
-
-      /**posting.done(function( data ) {
-        $("#result").text(data);
-
-      });
-      **/
-    });
-</script>
