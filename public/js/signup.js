@@ -1,4 +1,14 @@
-//var utility = require('lib/utility.js');
+function saveUserID(uid) {
+   localStorage.uid = uid;
+   let Userref = firebase.database().ref('ist/user')
+    Userref.orderByChild('uid').equalTo(uid).on("value", function(snapshot) {
+      //console.log(snapshot.val());
+      snapshot.forEach(function(data) {
+        localStorage.username =data.val().name;
+      });
+    });
+}
+
 $(document).ready(function(){ 
   //password strength
   $("#password").keypress(function() {
@@ -25,7 +35,7 @@ $(document).ready(function(){
   .then(function(user){
     var currentUser = firebase.auth().currentUser;
     if(currentUser) {
-       localStorage.uid = currentUser.uid;
+       saveUserID(currentUser.uid);
     }
 
   })

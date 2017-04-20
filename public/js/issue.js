@@ -11,15 +11,15 @@ $(document).ready(function(){
         snapshot.forEach(function(data) {
           if (valueSelected === "phone") {
             usercontact = data.val().phone;
-          } else if (valueSelected === "email")
+          } else if (valueSelected === "email") {
             usercontact = data.val().email;
+          }
         });
       $("#notifyvalue").val(usercontact);
       });
   });
 
   $("#issue").submit(function(event) {
-
     /* stop form from submitting normally */
     event.preventDefault();
     let Issueref = firebase.database().ref('ist/issue'),

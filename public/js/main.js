@@ -1,9 +1,11 @@
 
 $(document).ready(function(){
+
   var absURL = document.URL;
   if (localStorage.uid ) {
     $(".menubar").show();
   } else{
+    alert("alive");
     if (absURL.includes('signup')) {
       $(".menubar").hide()
     } else {
@@ -14,6 +16,7 @@ $(document).ready(function(){
 
 	// When the user clicks on <span> (x), close the modal
 	$("#raiseissue").click(function() {
+
 	    window.location.href = '/issue';
 	});
 

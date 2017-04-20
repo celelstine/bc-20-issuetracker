@@ -1,5 +1,12 @@
 function saveUserID(uid) {
    localStorage.uid = uid;
+   let Userref = firebase.database().ref('ist/user')
+    Userref.orderByChild('uid').equalTo(uid).on("value", function(snapshot) {
+      //console.log(snapshot.val());
+      snapshot.forEach(function(data) {
+        localStorage.username =data.val().name;
+      });
+    });
 }
 $(document).ready(function(){
 
@@ -39,8 +46,14 @@ $(document).ready(function(){
      .signInWithPopup(provider).then(function(result) {
         var token = result.credential.accessToken;
         var user = result.user.uid;
-
-        
+        saveUserID(user);
+      $.post("/setsession",
+      {
+        uid: user,
+      },
+      function(data, status){
+          alert("Data: " + data + "\nStatus: " + status);
+      });        
         //console.log(token)
         console.log(user)
 
@@ -61,7 +74,15 @@ $(document).ready(function(){
         var token = result.credential.accessToken;
         var secret = result.credential.secret;
         // The signed-in user info.
-        var user = result.user;        
+        var user = result.user.uid; 
+        saveUserID(user);
+        $.post("/setsession",
+        {
+          uid: user,
+        },
+        function(data, status){
+            alert("Data: " + data + "\nStatus: " + status);
+        });       
         //console.log(token)
         console.log(user)
 
@@ -87,7 +108,15 @@ $(document).ready(function(){
         var token = result.credential.accessToken;
         var secret = result.credential.secret;
         // The signed-in user info.
-        var user = result.user;        
+        var user = result.user.uid; 
+        saveUserID(user);
+        $.post("/setsession",
+        {
+          uid: user,
+        },
+        function(data, status){
+            alert("Data: " + data + "\nStatus: " + status);
+        });       
         //console.log(token)
         console.log(user)
 
