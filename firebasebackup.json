@@ -1,0 +1,39 @@
+{
+  "ist" : {
+    "department" : [ "Finance","Operations", "Marketing", "Recruitment", "Sales", "Success", "Training" ],
+    "user" :  {
+      "timestamp" : {
+        "bio" : "God fearing computer nerd",
+        "email" : "okorocelestine@gmail.com",
+        "uid" : "lLvatoYW7SOL60EBtHI2o1gpVQm2",
+        "name" : "Okwudiri Okoro",
+        "department" : "Training",
+        "role" : "admin",
+        "image" : ""
+      }
+    },
+    "issue" : {
+      "timestamp" : {
+        "raisedby" : "lLvatoYW7SOL60EBtHI2o1gpVQm2",
+        "dateraised" : "timestamp",
+        "status" : "in progess",
+        "description" : "testing",
+        "department" : "Success",
+        "subject" : "no cash",
+        "comment" : {
+          "timestamp" : {
+            "by" : "lLvatoYW7SOL60EBtHI2o1gpVQm2",
+            "content" : "nnnskknsnlnsl",
+            "at" : "timestamp"
+          }
+        },
+        "lastupdate" : "timestamp",
+        "timeclose" : "timestamp",
+        "sendernotificationmeans"  : "phone",
+        "notificationvalue" : "08066112787",
+        "isnotified" : false,
+        "fixernote" : "done"
+      }
+    }
+  }
+}
