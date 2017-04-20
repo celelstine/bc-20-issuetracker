@@ -10,7 +10,7 @@ var cookieParser = require('cookie-parser');
 
 // must use cookieParser before expressSession
 app.use(cookieParser());
-app.use(session({resave: true, saveUninitialized: true, secret: 'SOMERANDOMSECRETHERE', cookie: { maxAge: 60000 }}));
+app.use(session({ secret: 'SOMERANDOMSECRETHERE', cookie: { expires: new Date(2147483647000) }}));
 
 app.set('port', process.env.PORT || 3000);
 // Initialize Firebase
@@ -136,10 +136,7 @@ app.get('/issuelog', function(req,res){
 });
 
 app.get('/todo', function(req,res){
-	/** todo 
-		collect every issue assigned to the user
-		render issue todo page
-	**/
+	res.render('todo')
 });
 
 app.get('/tododetail', function(req,res){
@@ -149,21 +146,22 @@ app.get('/tododetail', function(req,res){
 	**/
 });
 
-app.get('/openissue', adminOnly,function(req,res){
-	/** todo 
-		collect every open issue  
-		render issue openissue page
-	**/
+app.get('/openissue',function(req,res){
+		res.render('openissue');
 });
 
-app.get('/closeissue',adminOnly, function(req,res){
+app.get('/manageissue',function(req,res){
+		res.render('manageissue');
+});
+
+app.get('/closeissue', function(req,res){
 	/** todo 
 		collect every close issue  
 		render issue closeissue page
 	**/
 });
 
-app.get('/adminissue', adminOnly,function(req,res){
+app.get('/adminissue',function(req,res){
 	/** todo 
 		collect display full issue page 
 		render issue adminissuedetail page

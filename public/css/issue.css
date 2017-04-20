@@ -60,3 +60,13 @@ color: #091BC1
 
 }
 
+.fixed{
+	height:15px;
+	color:red;
+	font-size: 10px;
+	margin-left: 10px;
+	padding: 5px
+}
+
+
+

@@ -1,10 +1,12 @@
 
 <script src="/js/login.js"></script>
+    <form method="post" action="signup" id="signin" >
     <fieldset>
         <legend> Login </legend>
-    Email: <br><input type="text" name="email"  require><br>
-    Password: <br><input type="text" name="email"  require><br>
-    <button id="editdescription"   > Signin </button> <br />
+    <span id="result"> </span>
+    Email: <br><input type="email" name="email" id="email"  required><br>
+    Password: <br><input type="password" name="password" id="password"  required><br>
+    <button type="submit" class="submit"  value="Submit">Signin</button> <br />
     <p style="margin-bottom:10px"> or signin  using </p>
     <button id="googlesignin" style="width:50px;background-color:#dd4b39"  > Google </button> 
     <button id="facebooksignin" style="width:65px;background-color:#3b5998"  > Facebook </button> 
@@ -13,3 +15,4 @@
     <br />
     <p>I don't have an account <button id="signup" style="width:50px"  > Signup </button>  </p>
     </fieldset>
+    </form>

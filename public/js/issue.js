@@ -24,20 +24,23 @@ $(document).ready(function(){
     event.preventDefault();
     let Issueref = firebase.database().ref('ist/issue'),
        newissue = {
+        "assigneeID" : "",
+        "assigneeName" : "",
         "raisedby" : localStorage.uid,
-        "dateraised" : new Date().toLocaleString(),
+        "dateraised" : gettimestamp(),
         "status" : "Initiated",
         "description" :$('#description').val() ,
         "department" : $('#department').val(),
         "subject" : $('#subject').val(),
         "comment" : {
         },
-        "lastupdate" : new Date().toLocaleString(),
+        "lastupdate" : gettimestamp(),
         "timeclose" : "",
         "sendernotificationmeans"  : $("#notifymeans").val(),
         "notificationvalue" : $("#notifyvalue").val(),
         "isnotified" : false,
-        "fixernote" : ""
+        "fixernote" : "",
+        "priority" : $("#priority").val()
       };
   console.log(newissue);
   Issueref.push(newissue).then(function(issue) {

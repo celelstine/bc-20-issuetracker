@@ -1,19 +1,20 @@
 function saveUserID(uid) {
    localStorage.uid = uid;
-   let Userref = firebase.database().ref('ist/user')
+  let Userref = firebase.database().ref('ist/user');
     Userref.orderByChild('uid').equalTo(uid).on("value", function(snapshot) {
       //console.log(snapshot.val());
       snapshot.forEach(function(data) {
         localStorage.username =data.val().name;
         console.log(data.val());
         if (data.val().role) {
-         localStorage.admin=  data.val().department;
+         localStorage.department=  data.val().departments;
          window.location.href = '/openissue';
         } else {
           window.location.href = '/issuelog';
         }
       });
     });
+
 }
 $(document).ready(function(){
 

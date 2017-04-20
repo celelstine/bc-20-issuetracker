@@ -4,7 +4,14 @@ function gettimestamp() {
     if (!Date.now) {
     Date.now = function() { return new Date().getTime(); }
     }
-    return  Math.floor(Date.now() / 1000);
+    return Date.now();
+}
+
+function todate(timestamp1) {
+    let newdate = new Date(timestamp1);
+    newdate.setHours(newdate.getHours()+1);
+    let dateString =newdate.toUTCString();
+    return dateString.slice(0,dateString.indexOf('G'))
 }
 function scorePassword(pass) {
     var score = 0;

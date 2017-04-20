@@ -15,6 +15,15 @@ $(document).ready(function(){
   }
 
 	// When the user clicks on <span> (x), close the modal
+  $("#signout").click(function() {
+      firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+    localStorage.uid = null;
+    }).catch(function(error) {
+      // An error happened.
+    });
+  });
+
 	$("#raiseissue").click(function() {
 
 	    window.location.href = '/issue';
