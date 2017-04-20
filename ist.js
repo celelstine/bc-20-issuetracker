@@ -24,19 +24,7 @@ var config = {
 };
   firebase.initializeApp(config);
 // set up handlebars view engine
-var handlebars = require('express3-handlebars').create({
-  defaultLayout:'main',
-  helpers: {
-    section: function(name, options){
-      if(!this._sections) this._sections = {};
-      this._sections[name] = options.fn(this);
-       return null;
-    },
-    static: function(name) {
-      return require('./lib/static.js').map(name);
-  }
-  }
-});
+var handlebars = require('express3-handlebars').create({defaultLayout:'main'});
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -46,6 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(express.static(__dirname + '/public'));
+var utility = require('./lib/utility.js')
 
 function adminOnly(req, res, next){
 	if(req.session.uid && req.session.role==='admin') return next();
@@ -56,7 +45,7 @@ function adminOnly(req, res, next){
 app.post('/setsession', function(req,res){
 		req.session.uid= req.body.uid;
 		req.session.save();
-		console.log(req.session.uid);
+		//console.log(req.session.uid);
 });
 app.get('/login', function(req,res){
 	res.render('login');
@@ -100,23 +89,46 @@ app.post('/signup', function(req,res){
   });
 });
 
-
+/**
 app.use(function(req,res,next){
 	if(req.session.uid)  return next();
+	//console.log(req.session.uid);
 	res.redirect('/login');
 });
-
+**/
 app.get('/issue', function(req,res){
-	/** todo 
-		render issue registration page
-	**/
+	res.render('issue');
 });
 
-app.post('/signup', function(req,res){
-	/** todo 
-			push issue 
-			redirect to issue log
-	**/
+app.post('/issue', function(req,res){
+	var subject=req.body.subject,
+    department=req.body.department,
+    description=req.body.description;
+    priority=req.body.priority;
+    Issueref = firebase.database().ref('ist/issue');
+	var  newissue = {
+        "raisedby" : req.session.uid,
+        "dateraised" : utility(),
+        "status" : "Initiated",
+        "description" : description,
+        "department" : department,
+        "subject" : subject,
+        "comment" : {
+        },
+        "lastupdate" : utility(),
+        "timeclose" : "",
+        "sendernotificationmeans"  : "phone",
+        "notificationvalue" : "08066112787",
+        "isnotified" : false,
+        "fixernote" : ""
+      };
+  console.log(newissue);
+  Issueref.push(newissue).then(function(issue) {
+    res.redirect('/');
+  }). catch(function(error) {
+    console.error('Sign Out Error', error);
+    res.redirect('/login');
+  });
 
 });
 
