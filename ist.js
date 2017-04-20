@@ -34,7 +34,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(express.static(__dirname + '/public'));
-var utility = require('./lib/utility.js')
 
 function adminOnly(req, res, next){
 	if(req.session.uid && req.session.role==='admin') return next();
@@ -133,10 +132,7 @@ app.post('/issue', function(req,res){
 });
 
 app.get('/issuelog', function(req,res){
-	/** todo 
-		collect every issue of the user
-		render issue log page
-	**/
+	res.render('issuelog')
 });
 
 app.get('/todo', function(req,res){
