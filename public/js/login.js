@@ -5,6 +5,13 @@ function saveUserID(uid) {
       //console.log(snapshot.val());
       snapshot.forEach(function(data) {
         localStorage.username =data.val().name;
+        console.log(data.val());
+        if (data.val().role) {
+         localStorage.admin=  data.val().department;
+         window.location.href = '/openissue';
+        } else {
+          window.location.href = '/issuelog';
+        }
       });
     });
 }
@@ -134,4 +141,26 @@ $(document).ready(function(){
       }); 
   });
   
+  $("#signin").submit(function(event) {
+    /* stop form from submitting normally */
+    event.preventDefault();
+    firebase.auth().signInWithEmailAndPassword($('#email').val(), $('#password').val())
+    .then(function(user) {
+      let user1 = firebase.auth().currentUser;
+      if (user1) {
+        saveUserID(user1.uid);
+      } else {
+        $("#result").text = "Wrong email or password";
+      }
+       
+    })
+    .catch(function(error) {
+    // Handle Errors here.
+      errorCode = error.code;
+      errorMessage = error.message;
+      console.log('errorCode = ' + errorCode + ', errorMessage= ' + errorMessage);
+      $("#result").text = "Wrong email or password";
+    });
+  });
+
 });
