@@ -2,11 +2,10 @@
 $(document).ready(function(){
 
   var absURL = document.URL;
-  if (localStorage.uid ) {
+  if (localStorage.getItem("uid") ) {
     $(".menubar").show();
   } else{
-    alert("alive");
-    if (absURL.includes('signup')) {
+    if (absURL.includes('signup') || absURL.includes('login')) {
       $(".menubar").hide()
     } else {
       $(".menubar").hide();
@@ -18,7 +17,7 @@ $(document).ready(function(){
   $("#signout").click(function() {
       firebase.auth().signOut().then(function() {
   // Sign-out successful.
-    localStorage.uid = null;
+    localStorage.removeItem("uid");
     }).catch(function(error) {
       // An error happened.
     });

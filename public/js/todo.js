@@ -1,5 +1,5 @@
 $(document).ready(function(){ 
- 	let uid= localStorage.uid,
+ 	let uid= localStorage.getItem("uid"),
  			Issueref = firebase.database().ref('ist/issue'),
  			curissue ;
  			Issueref.orderByChild('assignto').equalTo(uid).on("value", function(snapshot) {

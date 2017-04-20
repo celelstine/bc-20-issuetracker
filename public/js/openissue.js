@@ -1,5 +1,5 @@
 $(document).ready(function(){ 
- 	let uid= localStorage.uid,
+ 	let uid= localStorage.getItem("uid"),
  			department =localStorage.getItem('department'),
  			Issueref = firebase.database().ref('ist/issue'),
  			curissue ;
@@ -178,7 +178,7 @@ var getUsername = function(uid,cb) {
 }
 
 var assign = function(issueid) {
-	localStorage.issueid =issueid;
+	localStorage.setItem("issueid",issueid);
 
 	//window.location.href = '/manageissue';	
 }
@@ -192,6 +192,6 @@ var viewdescription = function(description) {
 
 var closeissue = function(issueid) {
 	alert('close' + issueid);
-	localStorage.issueid =issueid;
+	localStorage.setItem("issueid",issueid);
 	//window.location.href = '/manageissue';	
 }
