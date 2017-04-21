@@ -1,8 +1,8 @@
 {
   "name": "issuetracker",
   "version": "1.0.0",
-  "description": "A software that allow staff report issue,manage and monitor the progress of the issue resolution",
-  "main": "ist.js",
+  "description": "An application to report, fix and tracker isssue",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,6 +16,10 @@
   ],
   "author": "okorocelestine@gmail.com",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/celelstine/bc-20-issuetracker/issues"
+  },
+  "homepage": "https://github.com/celelstine/bc-20-issuetracker#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
@@ -23,15 +27,8 @@
     "express-session": "^1.15.2",
     "express3-handlebars": "^0.5.2",
     "firebase": "^3.8.0",
-    "fs": "0.0.1-security",
-    "nodemailer": "^3.1.8",
-    "passport": "^0.3.2",
-    "passport-facebook": "^2.1.1",
-    "querystring": "^0.2.0",
-    "request": "^2.81.0"
-  },
-  "bugs": {
-    "url": "https://github.com/celelstine/bc-20-issuetracker/issues"
-  },
-  "homepage": "https://github.com/celelstine/bc-20-issuetracker#readme"
+    "nexmo": "^2.0.2",
+    "nodemailer": "^4.0.1",
+    "path": "^0.12.7"
+  }
 }

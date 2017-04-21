@@ -12,7 +12,7 @@ var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 app.use(session({ secret: 'SOMERANDOMSECRETHERE', cookie: { expires: new Date(2147483647000) }}));
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3100);
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyABfpbd-dGQ97txyD37v98jZAkr0Dj8Qic",
@@ -33,13 +33,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-app.use(express.static(__dirname + '/public'));
 
+
+app.use(express.static(__dirname + '/public'));
+/**
 function adminOnly(req, res, next){
 	if(req.session.uid && req.session.role==='admin') return next();
 		//
 		next('route');
 }
+**/
 
 app.post('/setsession', function(req,res){
 		req.session.uid= req.body.uid;

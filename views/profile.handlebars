@@ -1,32 +1,32 @@
-
-<script src="/js/signup.js"></script>
 <div class="container">
 
 <div class="page-header" style="margin-left:-362px;margin-top:-35px;margin-bottom:-7px"> 
-    <h3>Signup Panel </h3>
+    <h3>Profile Panel </h3>
 </div>
 <!-- Registration form - START -->
 <div class="container">
     <div class="row" style="width:40%;margin-left:20%; margin-top:-10px">
-        <form role="form" id="registration">
+        <form role="form" id="profile">
+        <input type="hidden" id="uid" value="{{uid}}" />
+        <input type="hidden" unameid="uname" value="{{uname}}" />
             <div class="col-lg-6" >
                 <span id="result" ></span>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required>
+                        <input type="text" class="form-control" name="InputName" id="name" placeholder="Enter Name" value="{{name}}" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email"  required>
+                        <input type="email" class="form-control" id="InputEmailFirst" name="email" placeholder="Enter Email" value="{{email}}" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="phone" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" required>
+                        <input type="phone" class="form-control" id="InputPhone" name="phone" placeholder="Enter Phone Number" value="{{phone}}" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
@@ -42,18 +42,6 @@
                           <option value="Training">Training</option>
                         </select>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password that is unpredictable"  required>
-                        <span class="input-group-addon"> <span id="passstrength"></span></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Enter confirm password" required>
-                        <span class="input-group-addon"><span id="passmatch"></span></span>
                     </div>
                 </div>
                 <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">

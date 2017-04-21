@@ -10,7 +10,6 @@ $(document).ready(function(){
     } else {
       $(".menubar").hide();
     window.location.href = '/login'
-    }
   }
 
 	// When the user clicks on <span> (x), close the modal

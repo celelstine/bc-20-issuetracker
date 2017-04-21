@@ -1,145 +1,72 @@
-function saveUserID(uid) {
-   localStorage.setItem("uid",uid);
-  let Userref = firebase.database().ref('ist/user');
-    Userref.orderByChild('uid').equalTo(uid).on("value", function(snapshot) {
-      //console.log(snapshot.val());
-      snapshot.forEach(function(data) {
-        localStorage.setItem("username",data.val().name);
-        console.log(data.val());
-        if (data.val().role) {
-         localStorage.setItem("department",data.val().departments);
-         window.location.href = '/openissue';
-        } else {
-          window.location.href = '/issuelog';
-        }
-      });
-    });
-
-}
 $(document).ready(function(){
 
   $("#signup").click(function() {
       window.location.href = '/signup';
   });
 
-	$("#googlesignin").click(function() {
-	var provider = new firebase.auth.GoogleAuthProvider();
+  $("#googlesignin").click(function() {
+  var provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth()
-   .signInWithPopup(provider).then(function(result) {
+   .signInWithPopup(provider)
+   .then(function(result) {
       var token = result.credential.accessToken;
-      var user = result.user.uid;
-      //console.log(token)
-      console.log(user);
-      saveUserID(user);
-      $.post("/setsession",
-      {
-        uid: user,
-      },
-      function(data, status){
-          alert("Data: " + data + "\nStatus: " + status);
+      var curuser = result.user;
+      //console.log(result.user);
+      console.log(curuser.displayName + '-' + curuser.email + '- ' + curuser.photoURL + '' +curuser.uid );
+      //check if user exist in db
+      let Userref = firebase.database().ref('ist/user');
+      Userref.orderByChild("uid").equalTo(curuser.uid).once("value", function(snapshot) {
+        var value = snapshot.val();
+        var keys = Object.keys(value);
+        var userinfo =value[keys[0]];
+        if (userinfo){
+          $.post("/setsession", {uid: curuser.uid}, function(responseData){ 
+            console.log(responseData, 'responseData'); 
+            if(responseData) {
+              if(userinfo.role) {
+               window.location.href = '/openissue';
+              } else {
+                window.location.href = '/issuelog';
+              }
+            }
+          });
+        } else {
+          // create new user
+          var  newuser = {
+            "name" : curuser.displayName,
+            "departments" : "",
+            "uid" : curuser.uid ,
+            "email" : curuser.email,
+            "phone" :"",
+            "pic" : curuser.photoURL
+          };
+          //console.log(localStorage.uid);
+          userRef.push(newuser).then(function(user) {
+            //set session 
+             $.post("/setsession", {uid: curuser.uid}, function(responseData){ 
+                console.log(responseData, 'responseData'); 
+                if(responseData) {
+                  window.location.href = '/profile';
+                }
+              });
+            // direct user to profile
+            
+          }). catch(function(error) {
+            showresult("Error occures, please try again");
+            //$("#result").text = "Error occures, please try again";
+            //console.error('Sign Out Error', error);
+            
+          });
+        }
       });
     }).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
      // res.redirect('/signup');
-      console.log(error.code)
-       console.log(error.message)
+     // console.log(error.code)
+       //console.log(error.message)
+      showresult("Error occures, please try again");
     }); 
-	});
-
-  $("#facebooksignin").click(function() {
-    
-    var provider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth()
-     .signInWithPopup(provider).then(function(result) {
-        var token = result.credential.accessToken;
-        var user = result.user.uid;
-        saveUserID(user);
-      $.post("/setsession",
-      {
-        uid: user,
-      },
-      function(data, status){
-          alert("Data: " + data + "\nStatus: " + status);
-      });        
-        //console.log(token)
-        console.log(user)
-
-      }).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-       // res.redirect('/signup');
-        console.log(error.code)
-         console.log(error.message)
-      }); 
-  });
-
-  $("#twittersigin").click(function() {
-    
-    var provider = new firebase.auth.TwitterAuthProvider();
-    firebase.auth()
-     .signInWithPopup(provider).then(function(result) {
-        var token = result.credential.accessToken;
-        var secret = result.credential.secret;
-        // The signed-in user info.
-        var user = result.user.uid; 
-        saveUserID(user);
-        $.post("/setsession",
-        {
-          uid: user,
-        },
-        function(data, status){
-            alert("Data: " + data + "\nStatus: " + status);
-        });       
-        //console.log(token)
-        console.log(user)
-
-      }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-       // res.redirect('/signup');
-          console.log(error.code)
-         console.log(error.message)
-      }); 
-  });
-
-  $("#gitsignin").click(function() {
-    
-    var provider = new firebase.auth.GithubAuthProvider();
-    firebase.auth()
-     .signInWithPopup(provider).then(function(result) {
-        var token = result.credential.accessToken;
-        var secret = result.credential.secret;
-        // The signed-in user info.
-        var user = result.user.uid; 
-        saveUserID(user);
-        $.post("/setsession",
-        {
-          uid: user,
-        },
-        function(data, status){
-            alert("Data: " + data + "\nStatus: " + status);
-        });       
-        //console.log(token)
-        console.log(user)
-
-      }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-       // res.redirect('/signup');
-          console.log(error.code)
-         console.log(error.message)
-      }); 
   });
   
   $("#signin").submit(function(event) {
@@ -147,20 +74,38 @@ $(document).ready(function(){
     event.preventDefault();
     firebase.auth().signInWithEmailAndPassword($('#email').val(), $('#password').val())
     .then(function(user) {
-      let user1 = firebase.auth().currentUser;
-      if (user1) {
-        saveUserID(user1.uid);
+      let curuser = firebase.auth().currentUser;
+      if (curuser) {
+        let Userref = firebase.database().ref('ist/user');
+        Userref.orderByChild("uid").equalTo(curuser.uid).once("value", function(snapshot) {
+          var value = snapshot.val();
+          var keys = Object.keys(value);
+          var userinfo =value[keys[0]];
+          $.post("/setsession", {uid: curuser.uid}, function(responseData){ 
+            console.log(responseData, 'responseData'); 
+              if(responseData) {
+                if (data.val().role) {
+                  window.location.href = '/openissue';
+                  console.log('isadmin');
+                 } else {
+                    window.location.href = '/issuelog';
+                    }
+              }
+          });
+        });
+        
       } else {
-        $("#result").text = "Wrong email or password";
+        showresult("Wrong email or password");
+           // $("#result").text = "Wrong email or password";
       }
-       
     })
     .catch(function(error) {
     // Handle Errors here.
       errorCode = error.code;
       errorMessage = error.message;
       console.log('errorCode = ' + errorCode + ', errorMessage= ' + errorMessage);
-      $("#result").text = "Wrong email or password";
+      showresult("Wrong email or password");
+      //$("#result").text = "Wrong email or password";
     });
   });
 

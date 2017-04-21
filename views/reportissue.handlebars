@@ -1,32 +1,39 @@
-
-<script src="/js/signup.js"></script>
+<script src="/js/issue.js"></script>
 <div class="container">
 
-<div class="page-header" style="margin-left:-362px;margin-top:-35px;margin-bottom:-7px"> 
-    <h3>Signup Panel </h3>
+<div class="page-header" style="margin-left:-362px;margin-top:-35px;margin-bottom:-10px"> 
+    <h3>Create a ticket</h3>
 </div>
 <!-- Registration form - START -->
 <div class="container">
     <div class="row" style="width:40%;margin-left:20%; margin-top:-10px">
-        <form role="form" id="registration">
+        <form role="form" id="issue">
+        <input type="hidden" id="uid" value="{{uid}}" />
+        <input type="hidden" unameid="uname" value="{{uname}}" />
             <div class="col-lg-6" >
                 <span id="result" ></span>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required>
+                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Enter subject"  required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email"  required>
+                        <select  name="priority" class="form-control" id="priority" required>
+                          <option value="">Please select the severity</option>
+                          <option value="Critical">Critical</option>
+                          <option value="High">High</option>
+                          <option value="Medium">Medium</option>
+                          <option value="Low">Low</option>
+                        </select>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="phone" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" required>
+                        <textarea rows="4" class="form-control" cols="75" id="description" placeholder="Describe the issue here..." required></textarea> 
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
@@ -46,14 +53,19 @@
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password that is unpredictable"  required>
-                        <span class="input-group-addon"> <span id="passstrength"></span></span>
+                      <select  name="notifymeans" id="notifymeans" class="form-control"  >
+                        <option value="">Select Notification method</option>
+                        <option value="phone">SMS</option>
+                        <option value="email">Email</option>
+                      </select> 
+                       <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Enter confirm password" required>
-                        <span class="input-group-addon"><span id="passmatch"></span></span>
+                        <input type="text" name="notifyvalue" id="notifyvalue" class="form-control" 
+                      placeholder="Enter contact" required/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
                 <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
