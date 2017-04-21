@@ -45,9 +45,9 @@ var displayIssue = function(key,priority,raisedBy,subject,dateraise,description,
 	        '<td>' + todate(dateraise) + '</td>' +
 	        '<td>' + status + '</td>' +
 	        '<td>' + todate(lastupdatedDate) + '</td>' +
-	        '<td> <button type="button" style="font-size:12px" data-toggle="modal" data-target="#description" onclick=\'viewdescription("'+description+ '"")\'>View Description</button> ' +
-	        '<button type="button" style="font-size:12px;margin:2px"   id="todolist" onclick=\'fixed("'+key+ '")\'>fixed </button>'+
-	        '<button type="button" style="font-size:12px;margin:2px"   id="todolist1" onclick=\'comment("'+key+ '")\'>comment </button>'
+	        '<td> <button type="button" style="font-size:12px;padding-top:-2px" data-toggle="modal" data-target="#description" onclick=\'viewdescription("'+description+ '"")\'>View Description</button> ' +
+	        '<button type="button" style="font-size:12px;padding-top:-2px"   id="todolist" onclick=\'fixed("'+key+ '")\'>fixed </button>'+
+	        '<button type="button" style="font-size:12px;padding-top:-2px"   id="todolist1" onclick=\'comment("'+key+ '")\'>comment </button>'
 	        '</td></tr>';
 	    $('#issues tr:last').after(issuetag);
 	    console.log(issuetag);

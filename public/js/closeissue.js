@@ -111,8 +111,8 @@ var displayIssue = function(key,priority,raisedBy,subject,dateraise,description,
 	        '<td>' + todate(dateraise) + '</td>' +
 	        '<td> <label id="lbl'+ key+'" >'+assigneeName+'</label>  </td>' +
 	        '<td>' + todate(dateraise) + '</td>' +
-	        '<td> <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#description" onclick=\'viewdescription("'+description+ '")\'>View Description</button> </td>'
-	        +'<td> <button type="button" class="btn btn-info btn-lg"  onclick=\'reopenissue("'+key+ '")\'>Reopen  issue</button> </td>' +
+	        '<td> <button type="button" class="btn" style="font-size:12px;padding-top:-2px" data-toggle="modal" data-target="#description" onclick=\'viewdescription("'+description+ '")\'>View Description</button> </td>'
+	        +'<td> <button type="button" class="btn" style="font-size:12px;padding-top:-2px"  onclick=\'reopenissue("'+key+ '")\'>Reopen  issue</button> </td>' +
 	        '</tr>';
 	    // console.log(issuetag);
 	     //$('#myTable > tbody:last-child').append(issuetag);

@@ -172,8 +172,6 @@ var closeissue = function(key) {
 		});
 }
 
-          });
-///////////////////////////////
 
 var comment = function(issueid) {
 	$('input[name="issueid"]').val(issueid);	

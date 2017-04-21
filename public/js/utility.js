@@ -77,6 +77,6 @@ var showusername = function() {
     $("#usernamet").text(username);
 }
 
-var setactivelink() {
+var setactivelink = function(){
 
 }

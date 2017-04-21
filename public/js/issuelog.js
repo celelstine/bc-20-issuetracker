@@ -43,7 +43,7 @@ var displayIssue = function(key,priority,raisedBy,subject,dateraise,description,
 	        '<td>' + todate(dateraise) + '</td>' +
 	        '<td>' + status + '</td>' +
 	        '<td>' + todate(lastupdatedDate) + '</td>' +
-	        '<td> <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#description" onclick=\'viewdescription("'+description+ '")\'>View Description</button> </td>' +
+	        '<td> <button type="button" style="font-size:12px;padding-top:-2px" class="btn" data-toggle="modal" data-target="#description" onclick=\'viewdescription("'+description+ '")\'>View Description</button> </td>' +
 	        '</tr>';
 	    $('#issues tr:last').after(issuetag);
 		});
